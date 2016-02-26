@@ -1,0 +1,3 @@
+build/
+*.deb
+*.tar.bz2
