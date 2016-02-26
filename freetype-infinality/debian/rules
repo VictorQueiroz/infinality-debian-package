@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- --libdir=/usr/lib/$(DEB_HOST_MULTIARCH)/freetype-infinality
+
+override_dh_auto_install:
+	dh_auto_install --destdir=$(CURDIR)/debian/tmp
+
+	## Install file in /etc/ld.so.conf.d, so that the libraries are found ##
+	install -m 755 -d debian/tmp/etc/ld.so.conf.d/
+	echo "/usr/lib/$(DEB_HOST_MULTIARCH)/freetype-infinality" > debian/tmp/etc/ld.so.conf.d/freetype-infinality-$(DEB_HOST_MULTIARCH).conf
+
+	install -m 755 -D -T infinality-settings.sh debian/tmp/etc/profile.d/infinality-settings.sh
+
+override_dh_install:
+	dh_install --sourcedir=debian/tmp --fail-missing
+
+override_dh_auto_clean:
+	dh_auto_clean
+	# Remove build objects
+	rm -rvf objs/*

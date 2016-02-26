@@ -1,0 +1,3 @@
+[submodule "fontconfig-ultimate"]
+	path = fontconfig-ultimate
+	url = https://github.com/bohoomil/fontconfig-ultimate.git

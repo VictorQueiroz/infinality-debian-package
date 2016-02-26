@@ -1,0 +1,45 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	dh_clean
+
+override_dh_auto_configure:
+	autoreconf
+	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+
+override_dh_auto_build:
+	make
+
+override_dh_auto_test:
+
+override_dh_auto_install:
+	dh_auto_install --destdir=$(CURDIR)/debian/tmp
+
+	# Install presets
+	install -Dm 755 "fontconfig_patches/combi/30-metric-aliases-combi.conf" "debian/tmp/etc/fonts/conf.avail.infinality/combi/30-metric-aliases-combi.conf"
+	install -Dm 755 "fontconfig_patches/combi/37-repl-global-combi.conf" "debian/tmp/etc/fonts/conf.avail.infinality/combi/37-repl-global-combi.conf"
+	install -Dm 755 "fontconfig_patches/combi/60-latin-combi.conf" "debian/tmp/etc/fonts/conf.avail.infinality/combi/60-latin-combi.conf"
+	install -Dm 755 "fontconfig_patches/combi/65-non-latin-combi.conf" "debian/tmp/etc/fonts/conf.avail.infinality/combi/65-non-latin-combi.conf"
+	install -Dm 755 "fontconfig_patches/combi/66-aliases-wine-combi.conf" "debian/tmp/etc/fonts/conf.avail.infinality/combi/66-aliases-wine-combi.conf"
+	install -Dm 755 "fontconfig_patches/free/30-metric-aliases-free.conf" "debian/tmp/etc/fonts/conf.avail.infinality/free/30-metric-aliases-free.conf"
+	install -Dm 755 "fontconfig_patches/free/37-repl-global-free.conf" "debian/tmp/etc/fonts/conf.avail.infinality/free/37-repl-global-free.conf"
+	install -Dm 755 "fontconfig_patches/free/60-latin-free.conf" "debian/tmp/etc/fonts/conf.avail.infinality/free/60-latin-free.conf"
+	install -Dm 755 "fontconfig_patches/free/65-non-latin-free.conf" "debian/tmp/etc/fonts/conf.avail.infinality/free/65-non-latin-free.conf"
+	install -Dm 755 "fontconfig_patches/free/66-aliases-wine-free.conf" "debian/tmp/etc/fonts/conf.avail.infinality/free/66-aliases-wine-free.conf"
+	install -Dm 755 "fontconfig_patches/ms/30-metric-aliases-ms.conf" "debian/tmp/etc/fonts/conf.avail.infinality/ms/30-metric-aliases-ms.conf"
+	install -Dm 755 "fontconfig_patches/ms/37-repl-global-ms.conf" "debian/tmp/etc/fonts/conf.avail.infinality/ms/37-repl-global-ms.conf"
+	install -Dm 755 "fontconfig_patches/ms/60-latin-ms.conf" "debian/tmp/etc/fonts/conf.avail.infinality/ms/60-latin-ms.conf"
+	install -Dm 755 "fontconfig_patches/ms/65-non-latin-ms.conf" "debian/tmp/etc/fonts/conf.avail.infinality/ms/65-non-latin-ms.conf"
+	install -Dm 755 "fontconfig_patches/ms/66-aliases-wine-ms.conf" "debian/tmp/etc/fonts/conf.avail.infinality/ms/66-aliases-wine-ms.conf"
+
+	install -m 755 "fontconfig_patches/fc-presets" "debian/tmp/usr/bin/fc-presets"
+
+override_dh_install:
+	dh_install --sourcedir=debian/tmp --fail-missing

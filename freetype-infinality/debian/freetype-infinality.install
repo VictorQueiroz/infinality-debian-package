@@ -1,0 +1,6 @@
+etc/profile.d/
+etc/ld.so.conf.d/freetype-infinality-*.conf
+usr/bin/
+usr/include/freetype2/
+usr/share/
+usr/lib/*/freetype-infinality/
