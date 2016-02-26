@@ -13,8 +13,8 @@ mv /etc/fonts ~/etc_fonts.backup
 The installation it's pretty simple, since the script will do everything for you.
 
 ```bash
-# Install the dependencies
-sudo apt-get install -y devscripts debhelper
+# Install the build dependencies
+sudo apt-get install -y devscripts debhelper build-essential
 
 cd fontconfig-infinality/
 dpkg-checkbuilddeps
